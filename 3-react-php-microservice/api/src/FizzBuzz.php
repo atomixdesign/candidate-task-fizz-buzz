@@ -30,7 +30,7 @@ class FizzBuzz
             }
             // divisible by neither
             else if ($counter % 3 != 0 && $counter % 5 != 0) {
-                $resultArray[] = "-";
+                $resultArray[] = '';
             }
         }
 
