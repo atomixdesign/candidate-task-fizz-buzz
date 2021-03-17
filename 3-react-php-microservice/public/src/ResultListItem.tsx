@@ -2,10 +2,10 @@
 import React from 'react';
 
 // component definition
-function ResultListItem(count: Number, result: String) {
+function ResultListItem(props: any) {
   return (
     <li>
-        {count}. {result}
+        {props.count}. {props.result}
     </li>
   );
 }
