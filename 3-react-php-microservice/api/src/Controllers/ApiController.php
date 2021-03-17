@@ -20,12 +20,17 @@ class ApiController
     {
         // TODO
         // get data from http request
-        $startInt = $_POST['startValue'];
-        $endInt = $_POST['endValue'];
+        if (isset($_POST['startValue']) && isset($_POST['endValue'])){
+            $startInt = $_POST['startValue'];
+            $endInt = $_POST['endValue'];
 
-        // run calculation and send result in response
-        $result = $this->$fizzBuzz->calculate($startInt, $endInt);
-        $response = new JsonResponse($result);
-        $response->send();
+            // run calculation and send result in response
+            $result = $this->$fizzBuzz->calculate($startInt, $endInt);
+            $calculationResult = new JsonResponse($result);
+            return $calculationResult;
+        }
+        else {
+            return new JsonResponse('');
+        }
     }
 }
