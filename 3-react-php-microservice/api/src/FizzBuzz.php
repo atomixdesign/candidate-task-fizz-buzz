@@ -5,20 +5,6 @@ namespace App;
 
 use LogicException;
 
-// FizzBuzz result object
-class Result {
-    // properties
-    public int $input;
-    public string $output;
-
-    // constructor
-    public function __construct(int $input, string $output)
-    {
-        $this->input = $input;
-        $this->output = $output;
-    }
-}
-
 // FIZZBUZZ definition
 class FizzBuzz
 {
@@ -32,22 +18,22 @@ class FizzBuzz
             // check for fizz (divisible by 3), buzz (divisible by 5), both, or nothing (not divisible by either)
             // both conditions met
             if ($counter % 3 == 0 && $counter % 5 == 0) {
-                $result = new Result($counter, "FizzBuzz");
+                $result = array('input' => $counter, 'output' => 'FizzBuzz');
                 $resultArray[] = $result;
             }
             // divisible by 3 only
             else if ($counter % 3 == 0 && $counter % 5 != 0) {
-                $result = new Result($counter, "Fizz");
+                $result = array('input' => $counter, 'output' => 'Fizz');
                 $resultArray[] = $result;
             }
             // divisible by 5 only
             else if ($counter % 3 != 0 && $counter % 5 == 0) {
-                $result = new Result($counter, "Buzz");
+                $result = array('input' => $counter, 'output' => 'Buzz');
                 $resultArray[] = $result;
             }
             // divisible by neither
             else if ($counter % 3 != 0 && $counter % 5 != 0) {
-                $result = new Result($counter, '');
+                $result = array('input' => $counter, 'output' => '');
                 $resultArray[] = $result;
             }
         }
