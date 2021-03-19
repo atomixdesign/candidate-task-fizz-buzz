@@ -1,5 +1,6 @@
 // imports
 import React, { useState } from 'react';
+import ResultListItem from './ResultListItem';
 import Axios from 'axios';
 
 // component definition
@@ -14,18 +15,34 @@ function FizzBuzzForm() {
   // state for calculation
   const [isCalculated, setCalculated] = useState(false);
 
+  // state for results of calculation
+  const [results, setResults] = useState(Array);
+
   //additional definitions
-  const handleButton = (event: any) => {
-    event.preventDefault();
-    // call API for FizzBuzz calculations
-    Axios.post("/", {chosenValues}).then( fulfilled => {
-      // success
-      setCalculated(true);
-      }, rejected => {
-        // not success
-        setCalculated(false);
-      });
+  const getCalculations = async (start: Number, end: Number) : Promise<any> => {
+    try {
+      // run fetch POST to server
+      let response = await Axios.post("http://localhost:80", {"startValue": start, "endValue": end});
+      if (response.data !== null){
+        console.log(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const handleButton = async (event: any) => {
+    event.preventDefault();
+    
+    // call API for FizzBuzz calculations
+    getCalculations(chosenValues.startValue, chosenValues.endValue).then( response => {
+      setResults(response);
+      if (response !== []){
+        setCalculated(true);
+      }
+    });
+  };
   
     // update values from input elements
     const handleInputEntry = (event: any) => {
@@ -34,28 +51,29 @@ function FizzBuzzForm() {
       let inputValue = event.target.value;
       // update state with these values
       if (inputName === "startValue"){
-        setChosenValues({startValue: inputValue, endValue: chosenValues.endValue});
+        setChosenValues({...chosenValues, startValue: inputValue});
       }
       else if (inputName === "endValue"){
-        setChosenValues({startValue: chosenValues.startValue, endValue: inputValue});
+        setChosenValues({...chosenValues, endValue: inputValue});
       }
-    }
+    };
 
   //component output
   return (
     <div>
       <form>
         <label htmlFor="startInput">Start</label>
-        <input id="startInput" name="startValue" type="number" defaultValue="0" onChange={handleInputEntry}></input>
+        <input id="startInput" name="startValue" type="number" value={chosenValues.startValue} onChange={handleInputEntry}></input>
         <label htmlFor="endInput">End</label>
-        <input id="endInput" name="endValue" type="number" defaultValue="0" onChange={handleInputEntry}></input>
+        <input id="endInput" name="endValue" type="number" value={chosenValues.endValue} onChange={handleInputEntry}></input>
         <button onClick={handleButton}>Calculate</button>
       </form>
       <hr/>
-      <p>Chosen start: {chosenValues.startValue} Chosen end: {chosenValues.endValue}</p>
       <div>
         <ul>
-          {isCalculated? <p>is calculated</p> : <></>}
+          {isCalculated? results.map( function (calculation: any){ return (
+            <ResultListItem key={calculation.input} count={calculation.input} result={calculation.output}></ResultListItem>
+          )}) : <></>}
         </ul>
       </div>
     </div>
