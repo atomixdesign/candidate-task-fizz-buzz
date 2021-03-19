@@ -63,9 +63,9 @@ function FizzBuzzForm() {
     <div>
       <form>
         <label htmlFor="startInput">Start</label>
-        <input id="startInput" name="startValue" type="number" value={chosenValues.startValue} onChange={handleInputEntry}></input>
+        <input id="startInput" name="startValue" type="number" value={chosenValues.startValue} defaultValue="1" onChange={handleInputEntry}></input>
         <label htmlFor="endInput">End</label>
-        <input id="endInput" name="endValue" type="number" value={chosenValues.endValue} onChange={handleInputEntry}></input>
+        <input id="endInput" name="endValue" type="number" value={chosenValues.endValue} defaultValue="2" min={chosenValues.startValue} onChange={handleInputEntry}></input>
         <button onClick={handleButton}>Calculate</button>
       </form>
       <hr/>
