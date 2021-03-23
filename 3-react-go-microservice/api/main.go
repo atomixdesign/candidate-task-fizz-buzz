@@ -13,7 +13,7 @@ func main() {
   router := gin.Default()
 
   //frontend static files
-  router.Use(static.Serve("/", static.LocalFile("./views", true)))
+  router.Use(static.Serve("/", static.LocalFile("../../public", true)))
 
   // Setup route group for the API
   api := router.Group("/api")
@@ -26,25 +26,26 @@ func main() {
   }
 
  //call API post function
-  api.POST("/fizzBuzz/:start/:end", FizzBuzzCalc)
+  api.POST("/fizzBuzz", FizzBuzzCalc)
 
   // Start and run the server
-  router.Run(":3000")
+  router.Run(":5000")
 }
 
 //FizzBuzz calculation
 //TODO: Return json response & code refactoring
 func FizzBuzzCalc(c *gin.Context) {
-    a, err := strconv.ParseInt(c.Param("start")[0:], 10, 64);
+    errormessage := "Input is required"
+    a, err := strconv.ParseInt(c.PostForm("start")[0:], 10, 64);
     if err != nil {
-      c.JSON(http.StatusOK, "typeerror")
+      c.JSON(http.StatusBadRequest, gin.H{"error": errormessage})
     }
 
-    n, err1 := strconv.ParseInt(c.Param("end")[0:], 10, 64);
-    if err1 != nil {
-      c.JSON(http.StatusOK, "typeerror")
+    n, err := strconv.ParseInt(c.PostForm("end")[0:], 10, 64);
+    if err != nil {
+      c.JSON(http.StatusBadRequest, gin.H{"error": errormessage})
     }
-
+    
     fizz := "fizz"
     buzz := "buzz"
     for i := a; i <= n; i++ {
