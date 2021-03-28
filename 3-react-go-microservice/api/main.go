@@ -2,11 +2,16 @@ package main
 
 import (
   "net/http"
-  "fmt"
-  "strconv"
   "github.com/gin-gonic/contrib/static"
   "github.com/gin-gonic/gin"
+  "encoding/json"
+  "strconv"
 )
+
+type Input struct {
+  Start string `json:"start"`
+  End string `json:"end"`
+}
 
 func main() {
   // Set the router as the default one with Gin
@@ -33,30 +38,44 @@ func main() {
 }
 
 //FizzBuzz calculation
-//TODO: Return json response & code refactoring
+//TODO: sorting - return json & refactoring
 func FizzBuzzCalc(c *gin.Context) {
     errormessage := "Input is required"
-    a, err := strconv.ParseInt(c.PostForm("start")[0:], 10, 64);
+    jsonData, err := c.GetRawData()
     if err != nil {
       c.JSON(http.StatusBadRequest, gin.H{"error": errormessage})
+    }
+    input  := Input{}
+    json.Unmarshal(jsonData, &input)
+    a, error := strconv.ParseInt(input.Start[0:], 10, 64);
+
+    if error != nil {
+       c.JSON(http.StatusBadRequest, gin.H{"error": error})
     }
 
-    n, err := strconv.ParseInt(c.PostForm("end")[0:], 10, 64);
-    if err != nil {
-      c.JSON(http.StatusBadRequest, gin.H{"error": errormessage})
+    n, error1 := strconv.ParseInt(input.End[0:], 10, 64);
+
+    if error1 != nil {
+       c.JSON(http.StatusBadRequest, gin.H{"error": error1})
     }
-    
+
     fizz := "fizz"
     buzz := "buzz"
+    def := "-"
+
+    var output map[int]string
+    output = make(map[int]string)
     for i := a; i <= n; i++ {
     	if i % 3 == 0 && i % 5 == 0 {
-    		fmt.Println(i, fizz + buzz)
+        output[int(i)] = fizz + buzz
     	} else if i % 3 == 0 {
-    		fmt.Println(i, fizz)
+        output[int(i)] = fizz
     	} else if i % 5 == 0 {
-    		fmt.Println(i, buzz)
+        output[int(i)] = buzz
     	} else {
-    		fmt.Println(i)
+    		output[int(i)] = def
     	}
     }
+
+    c.JSON(http.StatusOK, gin.H{"message": output})
 }
