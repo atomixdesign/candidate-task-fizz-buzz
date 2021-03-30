@@ -38,7 +38,6 @@ func main() {
 }
 
 //FizzBuzz calculation
-//TODO: sorting - return json & refactoring
 func FizzBuzzCalc(c *gin.Context) {
     errormessage := "Input is required"
     jsonData, err := c.GetRawData()
@@ -59,9 +58,9 @@ func FizzBuzzCalc(c *gin.Context) {
        c.JSON(http.StatusBadRequest, gin.H{"error": error1})
     }
 
-    fizz := "fizz"
-    buzz := "buzz"
-    def := "-"
+    fizz := "Fizz"
+    buzz := "Buzz"
+    defValue := "-"
 
     var output map[int]string
     output = make(map[int]string)
@@ -73,7 +72,7 @@ func FizzBuzzCalc(c *gin.Context) {
     	} else if i % 5 == 0 {
         output[int(i)] = buzz
     	} else {
-    		output[int(i)] = def
+    		output[int(i)] = defValue
     	}
     }
 

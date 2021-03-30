@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Form from './Form'
+import Form from './FizzBuzz'
+import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   return (

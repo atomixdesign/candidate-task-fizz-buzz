@@ -48,3 +48,7 @@ AtomixFizzBuzz\3-react-go-microservice\api>go run main.go
 1. Edited form in App.tsx to call the API  
 2. Updated the method to post and client call in golang api
 3. set proxy to localhost:5000 for the golang and added to package.json
+
+
+UI
+npm install semantic-ui-react semantic-ui-css
