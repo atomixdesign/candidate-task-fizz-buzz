@@ -104,6 +104,7 @@ class FizzBuzz extends Component<any, any> {
             <Form.Field
               control={Input}
               name="start"
+              type='number'
               placeholder="Start"
               label="Start"
               value={this.state.start}
@@ -113,6 +114,7 @@ class FizzBuzz extends Component<any, any> {
             <Form.Field
               control={Input}
               label="End"
+              type='number'
               name="end"
               placeholder="End"
               value={this.state.end}
