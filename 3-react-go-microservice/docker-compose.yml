@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+   react-app:
+     image: react-app
+     stdin_open: true
+     build:
+       context: ./public
+       dockerfile: Dockerfile
+     ports:
+       - "3000:3000"
+
+   api-server:
+     image: api-server
+     build:
+      context: ./api
+      dockerfile: Dockerfile
+     ports:
+       - "127.0.0.1:5000:5000"
