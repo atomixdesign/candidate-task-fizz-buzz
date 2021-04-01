@@ -63,7 +63,8 @@ class FizzBuzz extends Component<any, any> {
     fetch("/api/fizzBuzz", {
       method: "POST",
       //convert the state to JSON and send as the POST request
-      body: JSON.stringify(this.state),
+      body: JSON.stringify({ start: parseInt(this.state.start),
+                             end:   parseInt(this.state.end)}),
     })
       .then((response) => response.json())
       .then((data) =>

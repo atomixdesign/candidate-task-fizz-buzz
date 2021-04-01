@@ -5,12 +5,11 @@ import (
   "github.com/gin-gonic/contrib/static"
   "github.com/gin-gonic/gin"
   "encoding/json"
-  "strconv"
 )
 
 type Input struct {
-  Start string `json:"start"`
-  End string `json:"end"`
+  Start int `json:"start"`
+  End int `json:"end"`
 }
 
 func main() {
@@ -46,25 +45,16 @@ func FizzBuzzCalc(c *gin.Context) {
     }
     input  := Input{}
     json.Unmarshal(jsonData, &input)
-    a, error := strconv.ParseInt(input.Start[0:], 10, 64);
 
-    if error != nil {
-       c.JSON(http.StatusBadRequest, gin.H{"error": error})
-    }
-
-    n, error1 := strconv.ParseInt(input.End[0:], 10, 64);
-
-    if error1 != nil {
-       c.JSON(http.StatusBadRequest, gin.H{"error": error1})
-    }
-
+    start := input.Start;
+    end := input.End;
     fizz := "Fizz"
     buzz := "Buzz"
     defValue := "-"
 
     var output map[int]string
     output = make(map[int]string)
-    for i := a; i <= n; i++ {
+    for i := start; i <= end; i++ {
     	if i % 3 == 0 && i % 5 == 0 {
         output[int(i)] = fizz + buzz
     	} else if i % 3 == 0 {
