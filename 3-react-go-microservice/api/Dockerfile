@@ -9,7 +9,7 @@ ADD . /app
 WORKDIR /app
 
 ## Running dependencies
-RUN apk update && apk add git && go get -u github.com/gin-gonic/contrib/static && go get -u github.com/gin-gonic/gin
+RUN apk update && apk add git && go get -u github.com/gin-gonic/gin
 
 ## run go build | exec Go program
 RUN go build -o main .
