@@ -17,64 +17,62 @@ class FizzBuzz extends Component<any, any> {
       end: "",
       result: [],
       isError: false,
-      startError: false,
-      endError: false,
-      numberError: false,
-      formError: false,
-      errors: null,
+      errors: {},
+      fields: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
   }
 
   // Form submit
   handleSubmit(event: any) {
     event.preventDefault();
-    let error = false;
 
-    //validation
-    if (this.state.start === "") {
-      this.setState({ startError: true });
-      error = true;
+    if (!this.handleValidation(event)) {
+      console.error('Invalid Form')
+      return false;
     } else {
-      this.setState({ startError: false });
-    }
-
-    if (this.state.end === "") {
-      this.setState({ endError: true });
-      error = true;
-    } else {
-      this.setState({ endError: false });
-    }
-
-    if (!this.state.endError && this.state.start > this.state.end) {
-      this.setState({ numberError: true });
-      error = true;
-    } else {
-      this.setState({ numberError: false });
-    }
-
-    if (error) {
-      this.setState({ formError: true });
-      return;
-    }
-    this.setState({ formError: false });
-
-    fetch("/api/fizzBuzz", {
-      method: "POST",
-      //convert the state to JSON and send as the POST request
-      body: JSON.stringify({ start: parseInt(this.state.start),
-                             end:   parseInt(this.state.end)}),
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          result: data.message,
-          isError: false,
+        fetch("/api/fizzBuzz", {
+          method: "POST",
+          //convert the state to JSON and send as the POST request
+          body: JSON.stringify({ start: parseInt(this.state.start),
+                                 end:   parseInt(this.state.end)}),
         })
-      )
-      // Catch any errors we hit and update the app
-      .catch((error) => this.setState({ error, isError: true }));
+        .then((response) => response.json())
+        .then((data) =>
+            this.setState({
+              result: data.message,
+              isError: false,
+            })
+        )
+        // Catch any errors we hit and update the app
+        .catch((error) => this.setState({ error, isError: true }));
+      }
+  }
+
+  handleValidation(event: any) {
+    let errors: any = {};
+    let formIsValid = true;
+
+    if (!this.state.start) {
+      formIsValid = false;
+      errors["start"] = "Please enter the start value"
+    }
+
+    if (!this.state.end) {
+      formIsValid = false;
+      errors["end"] = "Please enter the end value"
+    }
+
+    if (this.state.start >= this.state.end) {
+      formIsValid = false;
+      errors["end"] = "End value should be greater than start value"
+    }
+
+    this.setState({errors: errors});
+
+    return formIsValid;
   }
 
   // store all the values of the input field in react state single method handle
@@ -87,17 +85,10 @@ class FizzBuzz extends Component<any, any> {
 
   // Returns controlled form values of the input field not stored in DOM values are exist in react component itself as state
   render() {
-    const { isError, result } = this.state;
+    const {errors} = this.state;
     return (
       <Container>
-        <Form onSubmit={this.handleSubmit} error={this.state.formError}>
-          {this.state.formError ? (
-            <Message
-              error
-              header="FizzBuzz calculation Failed"
-              content="Please check the errors in the form"
-            />
-          ) : null}
+        <Form onSubmit={this.handleSubmit}>
           <Header as="h1" textAlign="center">
             FizzBuzz Calculation
           </Header>
@@ -110,7 +101,7 @@ class FizzBuzz extends Component<any, any> {
               label="Start"
               value={this.state.start}
               onChange={this.handleChange}
-              error={this.state.startError}
+              error={errors.start}
             />
             <Form.Field
               control={Input}
@@ -120,28 +111,20 @@ class FizzBuzz extends Component<any, any> {
               placeholder="End"
               value={this.state.end}
               onChange={this.handleChange}
-              error={this.state.endError || this.state.numberError}
+              error={errors.end}
             />
-            {this.state.numberError ? (
-              <Message
-                error
-                content="End value should be greater than Start value"
-                pointer="below"
-              />
-            ) : null}
-
             <Form.Field primary control={Button} label="&nbsp;">
               Calculate
             </Form.Field>
           </Form.Group>
           <hr />
           <List>
-            {!isError ? (
-              Object.keys(result).map((item: any) => {
+            {!this.state.isError ? (
+              Object.keys(this.state.result).map((item: any) => {
                 return (
                   <List.Item key={item}>
                     {" "}
-                    {item}. {result[item]}
+                    {item}. {this.state.result[item]}
                   </List.Item>
                 );
               })
