@@ -39,8 +39,14 @@ func FizzBuzzCalc(c * gin.Context) {
     json.Unmarshal(jsonData, & input)
     start:= input.Start;
     end:= input.End;
-    result, _ := fizzBuzz(start, end)
-    c.JSON(http.StatusOK, gin.H {
-        "message": result,
-    })
+    result, err := fizzBuzz(start, end)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H {
+            "error": errormessage,
+        })
+    } else {
+        c.JSON(http.StatusOK, gin.H {
+            "message": result,
+        })
+    }
 }

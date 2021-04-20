@@ -8,12 +8,14 @@ type FizzBuzzResult struct {
 }
 
 func fizzBuzz(start int, end int)(result[] FizzBuzzResult, err error) {
-    err = errors.New("TODO: Implement fizz buzz")
+    if start == 0 || end == 0 {
+        return []FizzBuzzResult{}, errors.New("Please check the input: start or end value is missing");
+    }
     fz:= [] FizzBuzzResult {}
     for i:= start;i <= end;i++ {
         fz = append(fz, CalculateFizzBuzz(int(i)))
     }
-    return fz, err;
+    return fz, nil;
 }
 
 func CalculateFizzBuzz(i int) FizzBuzzResult {

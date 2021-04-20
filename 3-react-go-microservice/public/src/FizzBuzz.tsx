@@ -118,20 +118,13 @@ class FizzBuzz extends Component<any, any> {
             </Form.Field>
           </Form.Group>
           <hr />
-          <List>
-            {!this.state.isError ? (
-              Object.keys(this.state.result).map((item: any) => {
-                return (
-                  <List.Item key={item}>
-                    {" "}
-                    {item}. {this.state.result[item]}
-                  </List.Item>
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </List>
+          {!this.state.isError ? (
+            <List>
+                {this.state.result.map(function(item: any, id: any) {
+                    return (<List.Item key={item.input}>{item.input}. {item.output}</List.Item>)
+                 })
+                }
+            </List> ) : (<></>)}
         </Form>
       </Container>
     );
