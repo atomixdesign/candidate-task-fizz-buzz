@@ -18,6 +18,10 @@ class ApiController
 
     public function handle(): JsonResponse
     {
-        // TODO
+       $request = file_get_contents('php://input');
+       $jsonRequest = json_decode($jsonRequest);
+       $start = $jsonRequest->start;
+       $end = $jsonRequest->end;
+
     }
 }
