@@ -23,20 +23,17 @@ const InputForm: React.FC = () => {
   };
   return (
     <div>
-      <form className="row mb-2">
+      <form className="row mt-1 mb-2">
         <div className="col-4">
-          {" "}
           <label htmlFor="start">Start:</label>
           <input type="number" defaultValue="1" ref={startRef} />
         </div>
         <div className="col-4">
-          {" "}
           <label htmlFor="start">End:</label>
           <input type="number" defaultValue="15" ref={endRef} />
         </div>
         <div className="col-4">
-          {" "}
-          <button className=" mt-3 btn btn-primary" onClick={handleButtonClick}>
+          <button className="btn btn-primary" onClick={handleButtonClick}>
             Submit
           </button>
         </div>
