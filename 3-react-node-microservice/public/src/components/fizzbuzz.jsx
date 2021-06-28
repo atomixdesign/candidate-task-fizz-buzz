@@ -26,7 +26,7 @@ class Fizzbuzz extends React.Component {
       }
 
       const fizzbuzzArray = loopArray.map(fizzBuzz)
-      console.log(fizzbuzzArray)
+      
 
       return fizzbuzzArray.map((item) => <li>{item}</li>)
   }
