@@ -3,7 +3,7 @@
   "main": "out/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node out/index.js",
+    "start": "nodemon src/index.js",
     "start:ts": "ts-node src/index.ts",
     "test": "jest"
   },
@@ -17,6 +17,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.8"
   }
 }
