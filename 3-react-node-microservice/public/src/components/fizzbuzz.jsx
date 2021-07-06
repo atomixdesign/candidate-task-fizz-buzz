@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { fizzBuzz } from "../utils/fizzbuzzer";
 import axios from "axios";
 
 class Fizzbuzz extends React.Component {
@@ -7,7 +6,7 @@ class Fizzbuzz extends React.Component {
     super();
     this.state = {
       min: 0,
-      max: 0,
+      max: 10,
       fizzbuzzArray: [],
     };
     this.handleChangeMin = this.handleChangeMin.bind(this);

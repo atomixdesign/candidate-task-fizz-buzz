@@ -1,4 +1,5 @@
-const express = require("express")
+const express = require("express");
+const fizzBuzz = require("../utils/fizzbuzzer");
 
 const app = express()
 
@@ -11,23 +12,6 @@ app.post("/", (req, res) => {
   let loopArray = []
   for (let i = min; i <= max; i++) {
      loopArray.push(i)
-  }
-
-  
-  
-  function fizzBuzz(num) {
-    
-    if (num % 15 === 0) {
-      return 'FizzBuzz ';
-    }
-    else if (num % 5 === 0) {
-      return 'Buzz '
-    }
-    else if (num % 3 === 0) {
-      return 'Fizz '
-    }
-    
-    return num    
   }
   
   let fizzbuzzArray = loopArray.map(fizzBuzz)
