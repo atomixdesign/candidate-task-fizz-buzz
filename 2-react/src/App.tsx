@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import FizzBuzzForm from "./components/FizzBuzzForm";
+import FizzBuzzList from "./components/FizzBuzzList";
+import { fizzBuzz } from "./fizzBuzz";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [fizzBuzzData, setFizzBuzzData] = useState(fizzBuzz());
+
+  const updateFizzBuzz = (inputState: any) => {
+    setFizzBuzzData(fizzBuzz(inputState.startValue, inputState.endValue));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FizzBuzzForm onSubmit={updateFizzBuzz} />
+      <FizzBuzzList fizzBuzzData={fizzBuzzData} />
     </div>
   );
-}
+};
 
 export default App;
