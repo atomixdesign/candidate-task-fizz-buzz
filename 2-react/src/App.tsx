@@ -1,15 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { fizzBuzz } from "./fizzBuzz";
 
 function App() {
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const res = fizzBuzz(Number(start), Number(end));
+    console.log(res);
+  };
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    name === "start" ? setStart(value) : setEnd(value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="start">Start</label>
+        <input type="text" name="start" value={start}></input>
+        <label htmlFor="end">End</label>
+        <input type="text" name="end" value={end}></input>
+        <input type="submit" value="Calculate" className="submit-btn" />
+      </form>
+      <hr />
+      <div>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -18,7 +36,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </div>
     </div>
   );
 }
