@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./App.css";
 import { fizzBuzz, FizzBuzzResult } from "./fizzBuzz";
+import "./App.css";
 
 function App() {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [result, setResult] = useState<FizzBuzzResult[]>();
 
-  const handleSubmit = (event: any) => {
+  const handleCalculation = (event: any) => {
     event.preventDefault();
     const res = fizzBuzz(Number(start), Number(end));
     setResult(res);
@@ -20,35 +20,43 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="start">Start</label>
-        <input
-          type="text"
-          name="start"
-          value={start}
-          onChange={handleChange}
-        ></input>
-        <label htmlFor="end">End</label>
-        <input
-          type="text"
-          name="end"
-          value={end}
-          onChange={handleChange}
-        ></input>
-        <input type="submit" value="Calculate" className="submit-btn" />
-      </form>
-      <hr />
-      <div>
-        {result
-          ? result.map((item, index) => {
-              return (
-                <p className="output" key={index}>
-                  {`${item.input}.`}
-                  {item.output ? item.output : "-"}
-                </p>
-              );
-            })
-          : null}
+      <div className="form-container">
+        <form onSubmit={handleCalculation}>
+          <div className="input-col">
+            <label htmlFor="start">Start</label>
+            <input
+              type="text"
+              name="start"
+              value={start}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div className="input-col">
+            <label htmlFor="end">End</label>
+            <input
+              type="text"
+              name="end"
+              value={end}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div className="input-col">
+            <input type="submit" value="Calculate" className="submit-btn" />
+          </div>
+        </form>
+        <hr />
+        <div className="result-container">
+          {result
+            ? result.map((item, index) => {
+                return (
+                  <p key={index}>
+                    {`${item.input}.`}
+                    {item.output ? item.output : "-"}
+                  </p>
+                );
+              })
+            : null}
+        </div>
         <a
           className="App-link"
           href="https://reactjs.org"
