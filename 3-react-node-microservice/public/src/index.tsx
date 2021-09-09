@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import FizzBuzzClass from './inputFields';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FizzBuzzClass/>
   </React.StrictMode>,
   document.getElementById('root')
 );
