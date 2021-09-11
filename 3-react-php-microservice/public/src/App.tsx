@@ -7,22 +7,24 @@ import { get } from './helpers/api-helper'
 
 function App() {
 
-  const [records, setRecords] = useState<any[]>([])
+  const [records, setRecords] = useState<any[]>([]);
+  const [hasError, setError] = useState(false);
 
   const handleSubmit = async ({start, end}: {start: string, end: string}) => {
     try {
       const { data } = await get(`http://127.0.0.1?start=${start}&end=${end}`);
-      setRecords(data)
+      setRecords(data);
+      setError(false);
     } catch (exception: any) {
       setRecords([])
-      console.error(exception.response.data.errors);
+      setError(true);
     }
   }
 
   return (
       <div className="App">
         <Form handleSubmit={handleSubmit}/>
-        <RecordsList records={records}/>
+          {!hasError ? <RecordsList records={records}/> : <h2>Something went wrong.</h2>}
       </div>
   );
 }
