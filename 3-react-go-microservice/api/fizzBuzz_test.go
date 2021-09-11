@@ -21,7 +21,7 @@ func TestFizzBuzz(t *testing.T) {
 		{ Input: 15, Output: "FizzBuzz" },
 	}
 
-	actual, _ := fizzBuzz(1, 15)
+	actual := fizzBuzz(1, 15)
 
 	if len(actual) != len(expected) {
 		t.Errorf("Expected length of %d, received %d", len(expected), len(actual))
