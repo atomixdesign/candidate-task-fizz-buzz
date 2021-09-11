@@ -1,4 +1,8 @@
 <?php
+// add the headers to solve the cors issue
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
+header("Access-Control-Allow-Headers: X-Requested-With");
 
 use App\Controllers\ApiController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
