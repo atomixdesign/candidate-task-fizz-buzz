@@ -11,7 +11,7 @@ type InputProps = {
 
 export const Input = ({id, name, label, type, value, onChange}: InputProps) => {
     return (
-        <div>
+        <div className='input-container'>
             <label>{label}</label>
             <input id={id} name={name} type={type} value={value} onChange={onChange}/>
         </div>
