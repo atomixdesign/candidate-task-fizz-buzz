@@ -7,5 +7,13 @@
  * }]
  */
 module.exports = (start, end) => {
-  throw 'TODO: Implement FizzBuzz'
+  const result = [];
+  for (start; end >= start;  ++start) {
+    const data = {
+      input: start,
+      output: ( start%3 ? '' : 'Fizz' ) + ( start%5 ? '' : 'Buzz' ) || '',
+    };
+    result.push(data);
+  }
+  return result;
 }

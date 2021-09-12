@@ -6,5 +6,13 @@ export type FizzBuzzResult = {
 }
 
 export const fizzBuzz = (start: number, end: number): FizzBuzzResult[] => {
-  throw 'TODO: Implement FizzBuzz'
+  const result: FizzBuzzResult[] = [];
+  for (start; end >= start;  ++start) {
+    const data: FizzBuzzResult = {
+      input: start,
+      output: ( start%3  === 0 && start%5 === 0 ? 'FizzBuzz' : '' ) || ( start%3 ? '' : 'Fizz' ) || ( start%5 ? '' : 'Buzz' ) || '',
+    };
+    result.push(data);
+  }
+  return result;
 }
