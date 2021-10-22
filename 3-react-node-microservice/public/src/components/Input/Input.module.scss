@@ -1,0 +1,40 @@
+@import '../../asset/variable.scss';
+@import '../../asset/layout.scss';
+.inputBar{
+    width:60%;
+    padding:50px;
+    background-color:$inputPink;
+    margin:0 auto;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    &_parameter{
+        width:200px;
+        margin-right:20px;
+        input{
+            width:180px;
+            height:30px;
+        }
+        @include media{
+            padding:20px;
+            margin:0 auto;
+        }
+    }
+    &_button{
+        background-color:$themeColor;
+        padding:10px 20px 10px 20px;
+        border-radius:20px;
+        color:$backGroundColor;
+        border:1px solid $themeColor;
+        font-weight: 600;
+        @include media{
+            margin:20px auto;
+        }
+        &:hover{
+            color:$themeColor;
+            background-color:$backGroundColor;
+            cursor:pointer;
+        }
+    }
+}

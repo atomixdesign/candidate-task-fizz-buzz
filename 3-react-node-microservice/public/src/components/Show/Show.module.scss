@@ -1,0 +1,19 @@
+@import '../../asset/layout.scss';
+@import '../../asset/variable.scss';
+.content{
+    width:60%;
+    background-color: $showBlue;
+    margin:0 auto;
+    padding:50px;
+    list-style:none;
+    text-align:left;
+    li{
+        margin-left:70px;
+        padding:5px;
+        @include media{
+            padding:5px 20px 5px 20px;
+            margin:0 auto;
+        }
+    }
+
+}
